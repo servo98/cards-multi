@@ -7,17 +7,22 @@ export class Game extends Scene {
   }
 
   preload() {
-    this.load.image("card1", "path/to/card1.png");
-    this.load.image("card2", "path/to/card2.png");
-    // this.load.image("background", "path/to/background.png");
+    this.load.spritesheet("cards", "assets/cards.png", {
+      frameWidth: 100,
+      frameHeight: 128,
+    });
+    // this.load.image("card1", "cards.png");
   }
 
   create() {
-    // Fondo
-    // this.add.image(400, 300, "background");
+    const totalFrameCards = this.textures.get("cards");
 
-    // Crear cartas usando la clase personalizada
-    const card1 = new Card(this, 200, 300, "card1");
-    const card2 = new Card(this, 400, 300, "card2");
+    const cards: Card[] = [];
+    for (let i = 0; i < totalFrameCards.frameTotal; i++) {
+      const card = new Card(this, 100 * i, 300, "cards", i);
+      cards.push(card);
+    }
+
+    // const card1 = new Card(this, 100 * 2, 300, "cards", 0);
   }
 }
